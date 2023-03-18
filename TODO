@@ -3,7 +3,17 @@ Mancala Solver
 - can select different modes (capture/avalanche, normal/random initialization)
 
 3/17/23:
+On LLM tools: these tools seem very strong.
+- GitHub Copilot is suggesting really useful stuff and can provide very pertinent comments and code understanding as well.
+  - eg. writing docstring for GameState struct
+- ChatGPT is great for providing skeletons of what I want to implement and a good general structure of the codebase I want.
+  - eg. today with the transposition table skeleton (great understanding of zobrist hash, and transposition table entries)
+  - even its game state struct matched pretty well with my state struct
+
 Components:
 - game rules
 - solver
+  - endgame table
+  - transposition table (search tree cache)
+  - futility pruning
 - CLI
