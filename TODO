@@ -1,0 +1,9 @@
+Mancala Solver
+- solver for Mancala (based on GamePigeon version rules)
+- can select different modes (capture/avalanche, normal/random initialization)
+
+3/17/23:
+Components:
+- game rules
+- solver
+- CLI
