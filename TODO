@@ -8,6 +8,10 @@ TODO:
 
 
 3/18/23:
+TODO:
+- agent integration testing
+  - benchmarking (states explorable, max search depth computable, does transposition table work, etc.)
+
 In progress:
 - central solver algorithm
   - mdtf
@@ -16,6 +20,10 @@ In progress:
   - transposition table
 - testing agent + game
   - cli display
+
+Finished:
+- game logic (making moves) generally good, not really checking for input validity right now though
+- printing board works fine (CLI version playable)
 
 
 
