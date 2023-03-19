@@ -44,7 +44,11 @@ GameState startGameNumStones(int num_stones) {
 
   // Initialize board
   for (int i = 0; i < 14; i++) {
-    game_state.board[i] = num_stones;
+    if (i == 6 || i == 13) {
+      game_state.board[i] = 0;
+    } else {
+      game_state.board[i] = num_stones;
+    }
   }
 
   return game_state;

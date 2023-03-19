@@ -5,16 +5,20 @@ Mancala Solver
 TODO:
 - avalanche mode (currently only implmementing capture mode)
 
-
-
-3/18/23:
-TODO:
+3/19/23:
+In progress:
 - transposition table
   - we can make this only dependent on active counters, and check parity so it is turn agnostic. surely this will pop
   - futility pruning (one side has a big enough lead that can't win even if the rest of the stones are captured)
 - how deep can we go with the optimizations?
   - current max depth of around 15-20
+    - search depth 19, (6, 1): .872 s
+    - search depth 19, (6, 2): 14.27 s
 - performance on random starting mode?
+
+
+
+3/18/23:
 
 In progress:
 - agent integration testing
