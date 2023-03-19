@@ -13,6 +13,8 @@ TODO:
   - benchmarking (states explorable, max search depth computable, does transposition table work, etc.)
 
 In progress:
+- agent on small game:
+  - 2 stones per pit starting?
 - central solver algorithm
   - mdtf
   - alpha beta w memory

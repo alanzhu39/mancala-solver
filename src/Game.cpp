@@ -15,6 +15,7 @@ GameState startGame(int game_mode, int difficulty) {
   // TODO: game mode
   GameState game_state;
   game_state.turn = 0;
+  game_state.isOver = 0;
 
   // Initialize board
   for (int i = 0; i < 14; i++) {
@@ -22,7 +23,9 @@ GameState startGame(int game_mode, int difficulty) {
       game_state.board[i] = 0;
     } else {
       if (difficulty == 0) {
-        game_state.board[i] = 4;
+        // game_state.board[i] = 4;
+        // FIXME: testing
+        game_state.board[i] = 1;
       } else {
         // TODO: random difficulty
         game_state.board[i] = 0;
@@ -86,6 +89,9 @@ GameState makeMove(const GameState &game_state, int move) {
       new_game_state.board[opponent_offset + 6] += new_game_state.board[opponent_offset + i];
       new_game_state.board[opponent_offset + i] = 0;
     }
+
+    // Game is over
+    new_game_state.isOver = 1;
   }
 
   // Check if last stone is in store
@@ -101,11 +107,7 @@ GameState makeMove(const GameState &game_state, int move) {
 }
 
 int getScore(const GameState &game_state) {
-  if (game_state.turn == 0) {
-    return game_state.board[6] - game_state.board[13];
-  } else {
-    return game_state.board[13] - game_state.board[6];
-  }
+  return game_state.board[6] - game_state.board[13];
 }
 
 void printBoard(const GameState &game_state) {

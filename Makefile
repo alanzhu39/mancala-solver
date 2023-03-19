@@ -1,11 +1,6 @@
 GPP = g++
-SFML_VERSION=2.5.1
 
-SFML_LIB=/usr/local/lib/SFML-$(SFML_VERSION)/lib
-SFML_HEADERS=/usr/local/lib/SFML-$(SFML_VERSION)/include
-
-FLAGS = -std=c++11 -Wall -L $(SFML_LIB) -I $(SFML_HEADERS)
-LIBS= -lsfml-graphics -lsfml-window -lsfml-system
+FLAGS = -std=c++11 -Wall
 
 # Final binary
 BIN = mancala

@@ -16,6 +16,7 @@ typedef char counter;
 struct GameState {
   counter board[14];
   char turn;
+  char isOver;
   // TODO: game mode
 };
 
