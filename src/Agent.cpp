@@ -1,5 +1,4 @@
-#include "Agent.h";
-#include <algorithm>;
+#include "Agent.h"
 
 int Agent::getBestMove(const GameState &root) {
   return getMove(this->iterativeDeepening(root));

@@ -8,14 +8,14 @@ FLAGS = -std=c++11 -Wall -L $(SFML_LIB) -I $(SFML_HEADERS)
 LIBS= -lsfml-graphics -lsfml-window -lsfml-system
 
 # Final binary
-BIN = solver
+BIN = mancala
 
 # Put all auto generated stuff to this build dir.
 BUILD_DIR = ./build
 
 # List of all .cpp source files.
 # CPP = main.cpp $(wildcard dir1/*.cpp) $(wildcard dir2/*.cpp)
-CPP = Solver.cpp $(wildcard src/*.cpp)
+CPP = Mancala.cpp $(wildcard src/*.cpp)
 
 # All .o files go to build dir.
 OBJ = $(CPP:%.cpp=$(BUILD_DIR)/%.o)
@@ -32,7 +32,7 @@ $(BUILD_DIR)/$(BIN) : $(OBJ)
 	@mkdir -p $(@D)
 # Just link all the object files.
 	$(GPP) $(FLAGS) $^ -o $@ $(LIBS)
-# Solo por conveniencia, para poder hacer ./solver facilmente
+# Solo por conveniencia, para poder hacer ./mancala facilmente
 	@mv $(BUILD_DIR)/$(BIN) $(BIN)
 
 # Include all .d files
@@ -51,5 +51,5 @@ $(BUILD_DIR)/%.o : %.cpp
 clean :
 # This should remove all generated files.
 	-rm -f $(BUILD_DIR)/$(BIN) $(OBJ) $(DEP)
-	rm -f solver
+	rm -f mancala
 	rmdir build/src build

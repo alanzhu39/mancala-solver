@@ -1,7 +1,36 @@
-#include "Game.h";
+#include "Game.h"
 
 int wrapBoard(int i) {
   return i % 14;
+}
+
+/* 
+ * Start a game of Mancala
+ * Game mode = 0: Capture mode
+ * Game mode = 1: Avalanche mode
+ * Difficulty = 0: 4 stones per pit
+ * Difficulty = 1: Random stones per pit
+ */
+GameState startGame(int game_mode, int difficulty) {
+  // TODO: game mode
+  GameState game_state;
+  game_state.turn = 0;
+
+  // Initialize board
+  for (int i = 0; i < 14; i++) {
+    if (i == 6 || i == 13) {
+      game_state.board[i] = 0;
+    } else {
+      if (difficulty == 0) {
+        game_state.board[i] = 4;
+      } else {
+        // TODO: random difficulty
+        game_state.board[i] = 0;
+      }
+    }
+  }
+
+  return game_state;
 }
 
 /* 
@@ -9,12 +38,15 @@ int wrapBoard(int i) {
  */
 GameState makeMove(const GameState &game_state, int move) {
   // Initialize new game state
-  GameState new_game_state = game_state;
+  GameState new_game_state;
+  new_game_state.turn = game_state.turn;
+  std::memcpy(new_game_state.board, game_state.board, sizeof(game_state.board));
 
   // Get counter value at move, depending on current turn
   int turn = game_state.turn;
   int turn_offset = turn * 7;
   int counter_value = game_state.board[turn_offset + move];
+  new_game_state.board[turn_offset + move] = 0;
 
   // Place stones based on counter value
   int k = 1;
@@ -63,4 +95,20 @@ int getScore(const GameState &game_state) {
   } else {
     return game_state.board[13] - game_state.board[6];
   }
+}
+
+void printBoard(const GameState &game_state) {
+  std::cout << "| ";
+  for (int i = 6; i >= 0; i--) {
+    std::cout << (int)game_state.board[i] << " | ";
+  }
+  std::cout << "  |";
+  std::cout << std::endl;
+  std::cout << "---------------------------------" << std::endl;
+  std::cout << "|  ";
+  for (int i = 7; i <= 13; i++) {
+    std::cout << " | " << (int)game_state.board[i];
+  }
+  std::cout << " |";
+  std::cout << std::endl;
 }

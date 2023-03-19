@@ -1,4 +1,4 @@
-#include "TranspositionTable.h";
+#include "TranspositionTable.h"
 
 // Insert score for a given state
 // Replace on collision

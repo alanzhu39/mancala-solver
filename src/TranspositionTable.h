@@ -5,8 +5,8 @@
 #include <vector>
 #include <unordered_map>
 
-#include "Game.h";
-#include "SpookyHash.h";
+#include "Game.h"
+#include "SpookyHash.h"
 
 class TranspositionTable {
   public:

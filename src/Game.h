@@ -1,6 +1,9 @@
 #ifndef Game_H
 #define Game_H
 
+#include <iostream>
+#include <cstring>
+
 typedef char counter;
 
 /*
@@ -13,9 +16,12 @@ typedef char counter;
 struct GameState {
   counter board[14];
   char turn;
+  // TODO: game mode
 };
 
+GameState startGame(int game_mode, int difficulty);
 GameState makeMove(const GameState &game_state, int move);
 int getScore(const GameState &game_state);
+void printBoard(const GameState &game_state);
 
 #endif
