@@ -21,6 +21,7 @@ struct GameState {
 };
 
 GameState startGame(int game_mode, int difficulty);
+GameState startGameNumStones(int num_stones);
 GameState makeMove(const GameState &game_state, int move);
 int getScore(const GameState &game_state);
 void printBoard(const GameState &game_state);

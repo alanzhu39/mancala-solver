@@ -23,14 +23,28 @@ GameState startGame(int game_mode, int difficulty) {
       game_state.board[i] = 0;
     } else {
       if (difficulty == 0) {
-        // game_state.board[i] = 4;
-        // FIXME: testing
-        game_state.board[i] = 1;
+        game_state.board[i] = 2;
       } else {
         // TODO: random difficulty
         game_state.board[i] = 0;
       }
     }
+  }
+
+  return game_state;
+}
+
+/*
+ * Start a game of Mancala with a specified number of stones per pit
+  */
+GameState startGameNumStones(int num_stones) {
+  GameState game_state;
+  game_state.turn = 0;
+  game_state.isOver = 0;
+
+  // Initialize board
+  for (int i = 0; i < 14; i++) {
+    game_state.board[i] = num_stones;
   }
 
   return game_state;
@@ -52,23 +66,25 @@ GameState makeMove(const GameState &game_state, int move) {
   new_game_state.board[turn_offset + move] = 0;
 
   // Place stones based on counter value
-  int k = 1;
-  while (k <= counter_value) {
-    int board_index = wrapBoard(turn_offset + move + k);
+  int counters_left = counter_value;
+  int curr_index = turn_offset + move + 1;
+  while (counters_left > 0) {
+    int board_index = wrapBoard(curr_index);
+    curr_index++;
     if ((turn == 1 && board_index == 6) || (turn == 0 && board_index == 13)) {
       // Skip opponent's store
-      k++;
+      continue;
     } else {
       new_game_state.board[board_index]++;
-      k++;
+      counters_left--;
     }
   }
-  int last_board_index = wrapBoard(turn_offset + move + k - 1);
+  int last_board_index = wrapBoard(curr_index - 1);
 
   // Check if last stone is a capture
   if ((last_board_index >= turn_offset && last_board_index < turn_offset + 6) // Last stone is in player's side
     && new_game_state.board[last_board_index] == 1 // Last stone is in a pit that was empty
-    // && new_game_state.board[12 - last_board_index] > 0 // Opposing pit is not empty
+    && new_game_state.board[12 - last_board_index] > 0 // Opposing pit is not empty
   ) {
     // Add captured stones to store
     new_game_state.board[turn_offset + 6] += new_game_state.board[last_board_index] + new_game_state.board[12 - last_board_index];

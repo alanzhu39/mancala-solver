@@ -2,46 +2,49 @@
 #include "src/Agent.h"
 
 int main(int argc, char* argv[]) {
+  if (argc >= 2) {
+    // Debug mode
+
+    // Initialize game state
+    int num_stones;
+    sscanf(argv[1], "%d", &num_stones);
+    GameState game_state = startGameNumStones(num_stones);
+
+    // Initialize agent
+    int searchDepth = 19;
+    Agent agentNorth = Agent(searchDepth);
+    Agent agentSouth = Agent(searchDepth);
+
+    // Play game
+    while (!game_state.isOver) {
+      int move;
+      if (game_state.turn == 1) {
+        // South's turn (AI)
+        move = agentSouth.getBestMove(game_state);
+        std::cout << move;
+      } else {
+        move = agentNorth.getBestMove(game_state);
+        std::cout << move;
+      }
+
+      int old_turn = game_state.turn;
+      game_state = makeMove(game_state, move);
+      if (game_state.turn != old_turn) {
+        std::cout << std::endl;
+        printBoard(game_state);
+      }
+    }
+    std::cout << std::endl;
+    printBoard(game_state);
+
+    return 0;
+  }
+
   // Initialize game state
   GameState game_state = startGame(0, 0);
 
-  // GameState game_state = {
-  //   {
-  //     2, 0, 0, 3, 0, 3, 4, 2, 0, 0, 3, 0, 3, 4
-  //   }, // board
-  //   0, // turn
-  //   0 // isOver
-  // };
-
   // Initialize agent
-  int searchDepth = 19;
-  Agent agentNorth = Agent(searchDepth);
-  Agent agentSouth = Agent(searchDepth);
-
-  // Play game
-  while (!game_state.isOver) {
-    int move;
-    if (game_state.turn == 1) {
-      // South's turn (AI)
-      move = agentSouth.getBestMove(game_state);
-      std::cout << move;
-    } else {
-      move = agentNorth.getBestMove(game_state);
-      std::cout << move;
-    }
-
-    int old_turn = game_state.turn;
-    game_state = makeMove(game_state, move);
-    if (game_state.turn != old_turn) {
-      std::cout << std::endl;
-      printBoard(game_state);
-    }
-  }
-  std::cout << std::endl;
-  printBoard(game_state);
-  /*
-  // Initialize agent
-  Agent agent = Agent();
+  Agent agent = Agent(15);
 
   // Play game
   char user_input;
@@ -52,12 +55,12 @@ int main(int argc, char* argv[]) {
     std::cout << std::endl;
 
     int move;
-    if (game_state.turn == 1) {
-      // South's turn (AI)
+    if (game_state.turn == 0) {
+      // North's turn (AI)
       move = agent.getBestMove(game_state);
       std::cout << "Agent's move: " << move << std::endl;
     } else {
-      // North's turn (human)
+      // South's turn (human)
       std::cout << "Enter a move (0-5) or 'q' to quit: ";
       std::cin >> user_input;
 
@@ -74,7 +77,6 @@ int main(int argc, char* argv[]) {
 
     game_state = makeMove(game_state, move);
   }
-  */
 
   return 0;
 }
