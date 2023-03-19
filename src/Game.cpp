@@ -25,7 +25,7 @@ GameState startGame(int game_mode, int difficulty) {
       if (difficulty == 0) {
         // game_state.board[i] = 4;
         // FIXME: testing
-        game_state.board[i] = 2;
+        game_state.board[i] = 1;
       } else {
         // TODO: random difficulty
         game_state.board[i] = 0;
@@ -68,7 +68,7 @@ GameState makeMove(const GameState &game_state, int move) {
   // Check if last stone is a capture
   if ((last_board_index >= turn_offset && last_board_index < turn_offset + 6) // Last stone is in player's side
     && new_game_state.board[last_board_index] == 1 // Last stone is in a pit that was empty
-    && new_game_state.board[12 - last_board_index] > 0 // Opposing pit is not empty
+    // && new_game_state.board[12 - last_board_index] > 0 // Opposing pit is not empty
   ) {
     // Add captured stones to store
     new_game_state.board[turn_offset + 6] += new_game_state.board[last_board_index] + new_game_state.board[12 - last_board_index];

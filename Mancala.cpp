@@ -7,9 +7,9 @@ int main(int argc, char* argv[]) {
 
   // GameState game_state = {
   //   {
-  //     0, 0, 1, 0, 1, 4, 9, 0, 1, 1, 0, 0, 3, 4
+  //     2, 0, 0, 3, 0, 3, 4, 2, 0, 0, 3, 0, 3, 4
   //   }, // board
-  //   1, // turn
+  //   0, // turn
   //   0 // isOver
   // };
 
