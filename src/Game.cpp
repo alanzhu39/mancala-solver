@@ -60,6 +60,18 @@ GameState makeMove(const GameState &game_state, int move) {
       k++;
     }
   }
+  int last_board_index = wrapBoard(turn_offset + move + k - 1);
+
+  // Check if last stone is a capture
+  if ((last_board_index >= turn_offset && last_board_index < turn_offset + 6) // Last stone is in player's side
+    && new_game_state.board[last_board_index] == 1 // Last stone is in a pit that was empty
+    && new_game_state.board[12 - last_board_index] > 0 // Opposing pit is not empty
+  ) {
+    // Add captured stones to store
+    new_game_state.board[turn_offset + 6] += new_game_state.board[last_board_index] + new_game_state.board[12 - last_board_index];
+    new_game_state.board[last_board_index] = 0;
+    new_game_state.board[12 - last_board_index] = 0;
+  }
 
   // Check if pits are all empty
   int pits_sum = 0;
@@ -77,7 +89,6 @@ GameState makeMove(const GameState &game_state, int move) {
   }
 
   // Check if last stone is in store
-  int last_board_index = wrapBoard(turn_offset + move + k - 1);
   if ((turn == 0 && last_board_index == 6) || (turn == 1 && last_board_index == 13)) {
     // Last stone is in store, so turn is not over
     new_game_state.turn = turn;
