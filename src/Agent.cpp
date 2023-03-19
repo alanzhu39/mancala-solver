@@ -1,23 +1,25 @@
 #include "Agent.h";
 #include <algorithm>;
 
-int getBestMove(GameState &root) {
+int getBestMove(const GameState &root) {
   return iterativeDeepening(root);
 }
 
-int iterativeDeepening(GameState &root) {
-  firstguess := 0;
-    for d = 1 to MAX_SEARCH_DEPTH do
-      firstguess := MTDF(root, firstguess, d);
-      if times_up() then break;
-    return firstguess;
+int iterativeDeepening(const GameState &root) {
+  // TODO: use transposition table for first guess
+  int first_guess = 0;
+  for (int d = 1; d <= MAX_SEARCH_DEPTH; d++) {
+    first_guess = mtdf(root, first_guess, d);
+    // TODO: timeout
+  }
+  return first_guess;
 }
 
-int mtdf(GameState &root, int f, int d) {
+int mtdf(const GameState &root, int f, int d) {
   int bound[2] = {-50, 50}; // lower, upper
   do {
-    beta = f + (f == bound[0]);
-    f = alphaBetaWithMemory(beta - 1, beta, depth);
+    int beta = f + (f == bound[0]);
+    f = alphaBetaWithMemory(root, beta - 1, beta, d);
     bound[f < beta] = f;
   } while (bound[0] < bound[1]);
   return f;

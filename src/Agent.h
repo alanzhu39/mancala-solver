@@ -5,9 +5,9 @@
 
 int MAX_SEARCH_DEPTH = 10;
 
-int getBestMove(GameState &root);
+int getBestMove(const GameState &root);
 
-int iterativeDeepening(GameState &root);
-int mtdf(GameState &root, int f, int d);
+int iterativeDeepening(const GameState &root);
+int mtdf(const GameState &root, int f, int d);
 
 #endif
