@@ -4,21 +4,36 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+
 #include "Game.h";
+#include "SpookyHash.h";
 
-// Define a function to compute the Zobrist hash value for a given game state
-std::size_t GetHash(const GameState &state, const std::vector<std::vector<std::size_t>>& zobrist_table);
+class TranspositionTable {
+  public:
+    // Insert score for a given state
+    // Replace on collision
+    void insertValue(const GameState &state, int score);
 
-// Define a function to initialize the Zobrist table
-std::vector<std::vector<std::size_t>> InitZobristTable();
+    // Check if a given state is in the transposition table
+    int containsValue(const GameState &state);
 
-// Define a struct to represent a transposition table entry
-struct TranspositionEntry {
-  int depth;  // Depth of the search at which this entry was stored
-  int score;  // Score of the position
+    // Get the score for a given state
+    int getValue(const GameState &state);
+
+  private:
+    // Define a struct to represent a transposition table entry
+    struct TranspositionEntry {
+      int score;  // Score of the position
+    };
+
+    // Compute the Spooky hash value for a given game state
+    uint32 getHash(const GameState &state);
+
+    // Define a function to initialize the transposition table
+    std::unordered_map<uint32, TranspositionEntry> transposition_map;
+
+    // Seed for Spooky hash
+    uint32 hashSeed = 0;
 };
-
-// Define a function to initialize the transposition table
-std::unordered_map<std::size_t, TranspositionEntry> InitTranspositionTable();
 
 #endif
