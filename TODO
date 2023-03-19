@@ -9,22 +9,38 @@ TODO:
 
 3/18/23:
 TODO:
-- agent integration testing
-  - benchmarking (states explorable, max search depth computable, does transposition table work, etc.)
+- transposition table
+  - we can make this only dependent on active counters, and check parity so it is turn agnostic. surely this will pop
+  - futility pruning (one side has a big enough lead that can't win even if the rest of the stones are captured)
+- how deep can we go with the optimizations?
+  - current max depth of around 15-20
+- performance on random starting mode?
 
 In progress:
-- agent on small game:
-  - 2 stones per pit starting?
+- agent integration testing
+  - benchmarking (states explorable, max search depth computable, does transposition table work, etc.)
 - central solver algorithm
-  - mdtf
   - alpha beta w memory
-  - iterative deepening
   - transposition table
-- testing agent + game
-  - cli display
 
 Finished:
+- testing agent + game
+  - cli display working fine
+- central solver algorithm
+  - mdtf
+  - alpha beta
+  - iterative deepening
+- agent on small game:
+  - 2 stones per pit starting?
+  - agent verified for (6, 1), (6, 2) on irving rules
+  - I didn't read the paper closely enough, turns out that they perform the capture even if the opposing pit is not empty which was giving me different results
+  - Once fixed, was able to repeat the game values and perfect games for 1 and 2 starting stones
+  - Still had to fix some of the algorithm logic:
+    - using pairs to pass move_vals since the bit shifting was wrong because there could be negative values
+    - tested soft-fail alpha beta, does not perform correctly with mtdf
 - game logic (making moves) generally good, not really checking for input validity right now though
+  - fixed score logic (should not have sign dependence on turn)
+  - added capture logic (we are following GamePigeon rules for this, so no capture on empty opposite pit)
 - printing board works fine (CLI version playable)
 
 
