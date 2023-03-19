@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
   // };
 
   // Initialize agent
-  int searchDepth = 16;
+  int searchDepth = 19;
   Agent agentNorth = Agent(searchDepth);
   Agent agentSouth = Agent(searchDepth);
 

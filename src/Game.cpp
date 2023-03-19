@@ -25,7 +25,7 @@ GameState startGame(int game_mode, int difficulty) {
       if (difficulty == 0) {
         // game_state.board[i] = 4;
         // FIXME: testing
-        game_state.board[i] = 1;
+        game_state.board[i] = 2;
       } else {
         // TODO: random difficulty
         game_state.board[i] = 0;

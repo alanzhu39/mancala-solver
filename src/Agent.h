@@ -14,8 +14,8 @@ class Agent {
     int getBestMove(const GameState &root);
 
   private:
-    int iterativeDeepening(const GameState &root);
-    int mtdf(const GameState &root, int f, int d);
+    move_val_t iterativeDeepening(const GameState &root);
+    move_val_t mtdf(const GameState &root, int f, int d);
     move_val_t alphaBetaWithMemory(const GameState &root, int alpha, int beta, int depth);
 
     int MAX_SEARCH_DEPTH;
