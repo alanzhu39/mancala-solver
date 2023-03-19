@@ -2,6 +2,21 @@ Mancala Solver
 - solver for Mancala (based on GamePigeon version rules)
 - can select different modes (capture/avalanche, normal/random initialization)
 
+TODO:
+- avalanche mode (currently only implmementing capture mode)
+
+
+
+3/18/23:
+In progress:
+- central solver algorithm
+  - mdtf
+  - alpha beta w memory
+  - iterative deepening
+  - transposition table
+
+
+
 3/17/23:
 On LLM tools: these tools seem very strong.
 - GitHub Copilot is suggesting really useful stuff and can provide very pertinent comments and code understanding as well.

@@ -1,7 +1,7 @@
 #ifndef Game_H
 #define Game_H
 
-typedef unsigned int counter;
+typedef char counter;
 
 /*
  * Board is organized as:
@@ -12,9 +12,10 @@ typedef unsigned int counter;
  */
 struct GameState {
   counter board[14];
-  int turn;
+  char turn;
 };
 
 GameState makeMove(GameState &game_state, int move);
+int getScore(GameState &game_state);
 
 #endif
