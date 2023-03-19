@@ -7,7 +7,7 @@ int wrapBoard(int i) {
 /* 
  * Given a game state and a move, return the new game state
  */
-GameState makeMove(GameState &game_state, int move) {
+GameState makeMove(const GameState &game_state, int move) {
   // Initialize new game state
   GameState new_game_state = game_state;
 
@@ -57,7 +57,7 @@ GameState makeMove(GameState &game_state, int move) {
   return new_game_state;
 }
 
-int getScore(GameState &game_state) {
+int getScore(const GameState &game_state) {
   if (game_state.turn == 0) {
     return game_state.board[6] - game_state.board[13];
   } else {

@@ -15,7 +15,7 @@ struct GameState {
   char turn;
 };
 
-GameState makeMove(GameState &game_state, int move);
-int getScore(GameState &game_state);
+GameState makeMove(const GameState &game_state, int move);
+int getScore(const GameState &game_state);
 
 #endif

@@ -1,4 +1,5 @@
 #include "Agent.h";
+#include <algorithm>;
 
 int getBestMove(GameState &root) {
   return iterativeDeepening(root);
@@ -22,42 +23,35 @@ int mtdf(GameState &root, int f, int d) {
   return f;
 }
 
-int alphaBetaWithMemory(GameState &root, int alpha, int beta, int depth) {
+int alphaBetaWithMemory(const GameState &root, int alpha, int beta, int depth) {
+  // TODO: add memory
   if (depth == 0) {
     return getScore(root);
   }
   if (root.turn == 0) {
-    value = -50;
+    // Turn = 0
+    int value = -50;
     for (int i = 0; i < 6; i++) {
       if (root.board[i] != 0) {
-        alpha = max(alpha, -alphaBetaWithMemory(makeMove(root, i), -beta, -alpha, depth - 1));
-        if (alpha >= beta) {
-          return alpha;
+        value = std::max(value, alphaBetaWithMemory(makeMove(root, i), alpha, beta, depth - 1));
+        if (value > beta) {
+          break; // beta cutoff
         }
+        alpha = std::max(alpha, value);
       }
     }
   } else {
-    beta = 50;
+    // Turn = 1
+    int value = 50;
+    int turn_offset = 7;
+    for (int i = 0; i < 6; i++) {
+      if (root.board[turn_offset + i] != 0) {
+        value = std::min(value, alphaBetaWithMemory(makeMove(root, i), alpha, beta, depth - 1));
+        if (value < alpha) {
+          break; // alpha cutoff
+        }
+        beta = std::min(beta, value);
+      }
+    }
   }
 }
-
-
-function alphabeta(node, depth, α, β, maximizingPlayer) is
-    if depth = 0 or node is a terminal node then
-        return the heuristic value of node
-    if maximizingPlayer then
-        value := −∞
-        for each child of node do
-            value := max(value, alphabeta(child, depth − 1, α, β, FALSE))
-            if value > β then
-                break (* β cutoff *)
-            α := max(α, value)
-        return value
-    else
-        value := +∞
-        for each child of node do
-            value := min(value, alphabeta(child, depth − 1, α, β, TRUE))
-            if value < α then
-                break (* α cutoff *)
-            β := min(β, value)
-        return value
