@@ -10,6 +10,9 @@
 
 class TranspositionTable {
   public:
+    TranspositionTable(): hashSeed(0) {}
+    TranspositionTable(uint32 hash_seed): hashSeed(hash_seed) {}
+
     // Insert score for a given state
     // Replace on collision
     void insertValue(const GameState &state, int score);
@@ -33,7 +36,7 @@ class TranspositionTable {
     std::unordered_map<uint32, TranspositionEntry> transposition_map;
 
     // Seed for Spooky hash
-    uint32 hashSeed = 0;
+    uint32 hashSeed;
 };
 
 #endif

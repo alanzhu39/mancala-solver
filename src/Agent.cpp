@@ -1,43 +1,29 @@
 #include "Agent.h";
 #include <algorithm>;
 
-typedef int move_val_t;
-
-int getMove(move_val_t move_val) {
-  return move_val >> 8;
+int Agent::getBestMove(const GameState &root) {
+  return getMove(this->iterativeDeepening(root));
 }
 
-int getVal(move_val_t move_val) {
-  return move_val & 0xFF;
-}
-
-move_val_t makeMoveVal(int move, int val) {
-  return (move << 8) | val;
-}
-
-int getBestMove(const GameState &root) {
-  return getMove(iterativeDeepening(root));
-}
-
-move_val_t iterativeDeepening(const GameState &root) {
+move_val_t Agent::iterativeDeepening(const GameState &root) {
   // TODO: use transposition table for first guess
   move_val_t move_val = 0;
   int first_guess = 0;
   for (int d = 1; d <= MAX_SEARCH_DEPTH; d++) {
-    move_val = mtdf(root, first_guess, d);
+    move_val = this->mtdf(root, first_guess, d);
     first_guess = getVal(move_val);
     // TODO: timeout
   }
   return move_val;
 }
 
-move_val_t mtdf(const GameState &root, int f, int d) {
+move_val_t Agent::mtdf(const GameState &root, int f, int d) {
   int bounds[2] = {-50, 50}; // lower, upper
   move_val_t move_val;
 
   do {
     int beta = f + (f == bounds[0]);
-    move_val = alphaBetaWithMemory(root, beta - 1, beta, d);
+    move_val = this->alphaBetaWithMemory(root, beta - 1, beta, d);
 
     f = getVal(move_val);
 
@@ -47,7 +33,7 @@ move_val_t mtdf(const GameState &root, int f, int d) {
   return move_val;
 }
 
-move_val_t alphaBetaWithMemory(const GameState &root, int alpha, int beta, int depth) {
+move_val_t Agent::alphaBetaWithMemory(const GameState &root, int alpha, int beta, int depth) {
   // TODO: add memory
   if (depth == 0) {
     return makeMoveVal(0, getScore(root));
@@ -58,7 +44,7 @@ move_val_t alphaBetaWithMemory(const GameState &root, int alpha, int beta, int d
     int value = -50;
     for (int i = 0; i < 6; i++) {
       if (root.board[i] != 0) {
-        move_val = std::max(value, alphaBetaWithMemory(makeMove(root, i), alpha, beta, depth - 1));
+        move_val = std::max(value, this->alphaBetaWithMemory(makeMove(root, i), alpha, beta, depth - 1));
         value = getVal(move_val);
         if (value > beta) {
           break; // beta cutoff
@@ -74,7 +60,7 @@ move_val_t alphaBetaWithMemory(const GameState &root, int alpha, int beta, int d
     int turn_offset = 7;
     for (int i = 0; i < 6; i++) {
       if (root.board[turn_offset + i] != 0) {
-        move_val = std::min(value, alphaBetaWithMemory(makeMove(root, i), alpha, beta, depth - 1));
+        move_val = std::min(value, this->alphaBetaWithMemory(makeMove(root, i), alpha, beta, depth - 1));
         value = getVal(move_val);
         if (value < alpha) {
           break; // alpha cutoff
