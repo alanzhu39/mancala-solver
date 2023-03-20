@@ -1,11 +1,11 @@
 #include "src/Game.h"
 #include "src/Agent.h"
-#include <chrono>
 
 int main(int argc, char* argv[]) {
   if (argc >= 2) {
     // Debug mode
     int timing_mode = 1;
+    int use_memory = 0;
 
     // Initialize game state
     int num_stones;
@@ -15,23 +15,17 @@ int main(int argc, char* argv[]) {
     // Initialize agent
     int searchDepth = 21;
     std::cout << "Search depth: " << searchDepth << std::endl;
-    Agent agentNorth = Agent(searchDepth);
-    Agent agentSouth = Agent(searchDepth);
+    Agent agentNorth = Agent(searchDepth, use_memory);
+    Agent agentSouth = Agent(searchDepth, use_memory);
 
     // Play game
     while (!game_state.isOver) {
       int move;
       if (game_state.turn == 0) {
         // North's turn (AI)
-        auto start = std::chrono::high_resolution_clock::now();
+        move = agentNorth.getBestMove(game_state, timing_mode);
 
-        move = agentNorth.getBestMove(game_state);
-
-        auto stop = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
         if (timing_mode == 1) {
-          std::cout << move << std::endl;
-          std::cout << "Time taken: " << duration.count() << " microseconds" << std::endl;
           break;
         } else {
           std::cout << move;
@@ -58,7 +52,7 @@ int main(int argc, char* argv[]) {
   GameState game_state = startGame(0, 0);
 
   // Initialize agent
-  Agent agent = Agent(15);
+  Agent agent = Agent();
 
   // Play game
   char user_input;

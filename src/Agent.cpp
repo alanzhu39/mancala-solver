@@ -7,10 +7,27 @@ int collision_counter = 0;
 int node_counter = 0;
 
 int Agent::getBestMove(const GameState &root) {
-  int res = getMove(iterativeDeepening(root));
+  return getMove(iterativeDeepening(root));
+}
+
+int Agent::getBestMove(const GameState &root, int timed) {
+  if (timed == 0) {
+    return getBestMove(root);
+  }
+
+  auto start = std::chrono::high_resolution_clock::now();
+
+  int move = getMove(iterativeDeepening(root));
+
+  auto stop = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
   std::cout << node_counter << std::endl;
   std::cout << collision_counter << std::endl;
-  return res;
+  std::cout << move << std::endl;
+  std::cout << "Time taken: " << duration.count() << " microseconds" << std::endl;
+
+  return move;
 }
 
 move_val_t Agent::iterativeDeepening(const GameState &root) {
@@ -32,8 +49,11 @@ move_val_t Agent::mtdf(const GameState &root, int f, int d) {
 
   do {
     int beta = f + (f == bounds[0]);
-    move_val = alphaBetaWithMemory(root, beta - 1, beta, d);
-    // move_val = alphaBeta(root, beta - 1, beta, d);
+    if (use_memory) {
+      move_val = alphaBetaWithMemory(root, beta - 1, beta, d);
+    } else {
+      move_val = alphaBeta(root, beta - 1, beta, d);
+    }
 
     f = getVal(move_val);
 
