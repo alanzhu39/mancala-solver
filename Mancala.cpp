@@ -3,9 +3,10 @@
 
 int main(int argc, char* argv[]) {
   if (argc >= 2) {
-    // Debug mode
+    // Debug mode flags
     int timing_mode = 1;
-    int use_memory = 0;
+    int use_memory = 1;
+    int searchDepth = 18;
 
     // Initialize game state
     int num_stones;
@@ -13,7 +14,6 @@ int main(int argc, char* argv[]) {
     GameState game_state = startGameNumStones(num_stones);
 
     // Initialize agent
-    int searchDepth = 21;
     std::cout << "Search depth: " << searchDepth << std::endl;
     Agent agentNorth = Agent(searchDepth, use_memory);
     Agent agentSouth = Agent(searchDepth, use_memory);
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
   GameState game_state = startGame(0, 0);
 
   // Initialize agent
-  Agent agent = Agent();
+  Agent agent = Agent(18, 1);
 
   // Play game
   char user_input;

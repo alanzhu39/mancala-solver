@@ -9,7 +9,7 @@
 
 class Agent {
   public:
-    Agent(): MAX_SEARCH_DEPTH(30), use_memory(1) {}
+    Agent(): MAX_SEARCH_DEPTH(21), use_memory(1) {}
     Agent(int max_search_depth, int use_memory): MAX_SEARCH_DEPTH(max_search_depth), use_memory(use_memory) {}
 
     int getBestMove(const GameState &root);

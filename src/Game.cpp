@@ -23,7 +23,7 @@ GameState startGame(int game_mode, int difficulty) {
       game_state.board[i] = 0;
     } else {
       if (difficulty == 0) {
-        game_state.board[i] = 2;
+        game_state.board[i] = 4;
       } else {
         // TODO: random difficulty
         game_state.board[i] = 0;
