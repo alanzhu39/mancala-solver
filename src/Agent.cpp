@@ -134,6 +134,7 @@ move_val_t Agent::alphaBetaWithMemory(const GameState &root, int alpha, int beta
     // Turn = 0
     int value = LOWER_INF;
     int move = -1;
+    if (maxFutility(root) )
     for (int j = 0; j < 6; j++) {
       int i = (start_move + j) % 6;
       if (root.board[i] != 0) {

@@ -25,6 +25,13 @@ Transposition table notes:
 - using 64-bit hash to make more resistant to collisions
   - add full collision resistance in the future
 
+Benchmarks:
+- depth 18, w TT, move ordering by TT
+  - 2 stones: 0.041s
+  - 3 stones: 5.877s
+  - 4 stones: 1.522s
+  - 5 stones: 7.064s
+
 Finished:
 - first version of transposition table:
   - 64 bit Jenkins hash keys

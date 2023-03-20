@@ -130,6 +130,24 @@ int getScore(const GameState &game_state) {
   return game_state.board[6] - game_state.board[13];
 }
 
+int maxFutility(const GameState &game_state) {
+  int remaining_stones = 0;
+  for (int i = 0; i < 6; i++) {
+    remaining_stones += game_state.board[i];
+    remaining_stones += game_state.board[i + 7];
+  }
+  return game_state.board[6] + remaining_stones - game_state.board[13];
+}
+
+int minFutility(const GameState &game_state) {
+  int remaining_stones = 0;
+  for (int i = 0; i < 6; i++) {
+    remaining_stones += game_state.board[i];
+    remaining_stones += game_state.board[i + 7];
+  }
+  return game_state.board[6] - remaining_stones - game_state.board[13];
+}
+
 void printBoard(const GameState &game_state) {
   std::cout << "| ";
   for (int i = 6; i >= 0; i--) {
