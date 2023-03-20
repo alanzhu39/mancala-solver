@@ -9,12 +9,26 @@ TODO:
 In progress:
 - transposition table
   - we can make this only dependent on active counters, and check parity so it is turn agnostic. surely this will pop
-  - futility pruning (one side has a big enough lead that can't win even if the rest of the stones are captured)
+- futility pruning (one side has a big enough lead that can't win even if the rest of the stones are captured)
+- move ordering
+  - adding move ordering, where starting move to be considered is transposition entry move
+    - this gives significant speedup!
 - how deep can we go with the optimizations?
   - current max depth of around 15-20
     - search depth 19, (6, 1): .872 s
     - search depth 19, (6, 2): 14.27 s
 - performance on random starting mode?
+
+Transposition table notes:
+- tested flipped position checking and ignoring stores, both seem to have minimal benefit
+  - negligible improvement over simply hashing the full state
+- adding node depth and node type to transposition entries
+  - node type necessary for accurate results (we reassign alpha/beta based on type, still have to find a way to get exact nodes)
+  - depth-preferred replacement seems to work better based on early testing (vs replace on any collision)
+    - especially as max search depth increases
+    - for some reason, much faster on (6, 5) as opposed to (6, 3)?
+- using 64-bit hash to make more resistant to collisions
+  - add full collision resistance in the future
 
 
 

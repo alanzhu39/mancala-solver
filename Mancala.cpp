@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     GameState game_state = startGameNumStones(num_stones);
 
     // Initialize agent
-    int searchDepth = 19;
+    int searchDepth = 21;
     std::cout << "Search depth: " << searchDepth << std::endl;
     Agent agentNorth = Agent(searchDepth);
     Agent agentSouth = Agent(searchDepth);

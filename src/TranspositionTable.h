@@ -10,33 +10,34 @@
 
 class TranspositionTable {
   public:
-    TranspositionTable(): hashSeed(0) {}
-    TranspositionTable(uint32 hash_seed): hashSeed(hash_seed) {}
-
-    // Insert score for a given state
-    // Replace on collision
-    void insertValue(const GameState &state, int score);
-
-    // Check if a given state is in the transposition table
-    int containsValue(const GameState &state);
-
-    // Get the score for a given state
-    int getValue(const GameState &state);
-
-  private:
     // Define a struct to represent a transposition table entry
     struct TranspositionEntry {
+      int depth;  // Depth to which the position was evaluated
       int score;  // Score of the position
+      int move;   // Move that led to the position
+      int type;   // Entry type (exact, lower bound, upper bound)
     };
 
+    // Insert score for a given state
+    void insertEntry(const GameState &state, int depth, int score, int move, int type);
+
+    // Check if a given state is in the transposition table
+    int containsState(const GameState &state);
+
+    // Get the score for a given state
+    TranspositionEntry getEntry(const GameState &state);
+
+  private:
+    typedef uint64 hash_t;
+  
     // Compute the Spooky hash value for a given game state
-    uint32 getHash(const GameState &state);
+    hash_t getHash(const GameState &state);
 
     // Define a function to initialize the transposition table
-    std::unordered_map<uint32, TranspositionEntry> transposition_map;
+    std::unordered_map<hash_t, TranspositionEntry> transposition_map;
 
     // Seed for Spooky hash
-    uint32 hashSeed;
+    hash_t hashSeed = 0;
 };
 
 #endif
