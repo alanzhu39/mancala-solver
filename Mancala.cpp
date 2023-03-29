@@ -53,6 +53,7 @@ int main(int argc, char* argv[]) {
 
   // Initialize agent
   Agent agent = Agent(18, 1);
+  int agent_turn = 1;
 
   // Play game
   char user_input;
@@ -63,12 +64,12 @@ int main(int argc, char* argv[]) {
     std::cout << std::endl;
 
     int move;
-    if (game_state.turn == 0) {
-      // North's turn (AI)
+    if (game_state.turn == agent_turn) {
+      // AI turn
       move = agent.getBestMove(game_state);
       std::cout << "Agent's move: " << move << std::endl;
     } else {
-      // South's turn (human)
+      // Human turn
       std::cout << "Enter a move (0-5) or 'q' to quit: ";
       std::cin >> user_input;
 

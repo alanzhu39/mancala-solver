@@ -3,7 +3,7 @@
 
 #include "Game.h"
 #include "TranspositionTable.h"
-#include "MoveVal.h"
+#include "Node.h"
 #include <algorithm>
 #include <chrono>
 
@@ -16,10 +16,10 @@ class Agent {
     int getBestMove(const GameState &root, int timed);
 
   private:
-    move_val_t iterativeDeepening(const GameState &root);
-    move_val_t mtdf(const GameState &root, int f, int d);
-    move_val_t alphaBeta(const GameState &root, int alpha, int beta, int depth);
-    move_val_t alphaBetaWithMemory(const GameState &root, int alpha, int beta, int depth);
+    Node iterativeDeepening(const GameState &root);
+    Node mtdf(const GameState &root, int f, int d);
+    Node alphaBeta(const GameState &root, int alpha, int beta, int depth);
+    Node alphaBetaWithMemory(const GameState &root, int alpha, int beta, int depth);
 
     int MAX_SEARCH_DEPTH;
     int use_memory;

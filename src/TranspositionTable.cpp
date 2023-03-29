@@ -3,7 +3,14 @@
 // Insert score for a given state
 void TranspositionTable::insertEntry(const GameState &state, int depth, int score, int move, int type) {
   hash_t hash = getHash(state);
-  if (transposition_map.count(hash) == 0 || depth > transposition_map[hash].depth) {
+  if (
+    // Insert if the state is not in the table
+    transposition_map.count(hash) == 0
+    // Prefer exact scores over lower/upper bounds
+    || type == 0
+    // Prefer deeper scores over shallower scores (keep exact scores)
+    || (transposition_map[hash].type != 0 && depth > transposition_map[hash].depth)
+  ) {
     transposition_map[hash] = {depth, score, move, type};
   }
 }

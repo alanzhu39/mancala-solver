@@ -4,6 +4,18 @@ Mancala Solver
 
 TODO:
 - avalanche mode (currently only implmementing capture mode)
+- random starting stones
+- endgame table
+- transposition table improvements
+  - pass node status thru search tree, so can use exact value nodes
+- better move ordering
+
+3/28/23:
+In progress:
+- futility pruning
+- transposition table insertion improvements
+
+
 
 3/19/23:
 In progress:
