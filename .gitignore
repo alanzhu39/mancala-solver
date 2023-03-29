@@ -1,7 +1,7 @@
 
 build/*
 sfml-app
-editor
+mancala
 txt/notes.txt
 
 # Compiled Object files
