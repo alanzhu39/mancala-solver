@@ -9,9 +9,11 @@ int main(int argc, char* argv[]) {
     int searchDepth = 18;
 
     // Initialize game state
+    int difficulty;
     int num_stones;
-    sscanf(argv[1], "%d", &num_stones);
-    GameState game_state = startGameNumStones(num_stones);
+    sscanf(argv[1], "%d", &difficulty);
+    sscanf(argv[2], "%d", &num_stones);
+    GameState game_state = startGame(0, difficulty, num_stones);
 
     // Initialize agent
     std::cout << "Search depth: " << searchDepth << std::endl;
@@ -49,7 +51,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Initialize game state
-  GameState game_state = startGame(0, 0);
+  GameState game_state = startGame(0, 0, 4);
 
   // Initialize agent
   Agent agent = Agent(18, 1);

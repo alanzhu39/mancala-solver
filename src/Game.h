@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 
 typedef char counter;
 
@@ -20,7 +21,7 @@ struct GameState {
   // TODO: game mode
 };
 
-GameState startGame(int game_mode, int difficulty);
+GameState startGame(int game_mode, int difficulty, int num_stones);
 GameState startGameNumStones(int num_stones);
 GameState makeMove(const GameState &game_state, int move);
 

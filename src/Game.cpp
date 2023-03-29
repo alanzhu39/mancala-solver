@@ -11,22 +11,28 @@ int wrapBoard(int i) {
  * Difficulty = 0: 4 stones per pit
  * Difficulty = 1: Random stones per pit
  */
-GameState startGame(int game_mode, int difficulty) {
+GameState startGame(int game_mode, int difficulty, int num_stones) {
   // TODO: game mode
   GameState game_state;
   game_state.turn = 0;
   game_state.isOver = 0;
 
   // Initialize board
+  int stones_remaining = 12 * (num_stones - 1);
+  srand((unsigned) time(NULL));
   for (int i = 0; i < 14; i++) {
     if (i == 6 || i == 13) {
       game_state.board[i] = 0;
     } else {
       if (difficulty == 0) {
-        game_state.board[i] = 4;
+        game_state.board[i] = num_stones;
       } else {
-        // TODO: random difficulty
-        game_state.board[i] = 0;
+        int curr_stones = std::min(stones_remaining, rand() % (2 * num_stones - 1));
+        if (i == 12) {
+          curr_stones = stones_remaining;
+        }
+        stones_remaining -= curr_stones;
+        game_state.board[i] = 1 + curr_stones;
       }
     }
   }

@@ -14,6 +14,7 @@ TODO:
 In progress:
 - futility pruning
 - transposition table insertion improvements
+  - using Node struct for return values (supporting exact nodes) does not seem to have much help over simply using bounds
 
 
 
